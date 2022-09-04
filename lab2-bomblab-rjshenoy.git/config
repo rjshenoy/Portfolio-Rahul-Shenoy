@@ -1,7 +1,0 @@
-[core]
-	repositoryformatversion = 0
-	filemode = false
-	bare = true
-	ignorecase = true
-[remote "origin"]
-	url = https://github.com/cu-csci-2400-fall-2021/lab2-bomblab-rjshenoy.git
