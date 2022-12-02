@@ -15,7 +15,7 @@ private:
     int size;
 
     
-    Linked_List *nl;
+    Node *prevList;
     
     
     void addNode(int new_data) {
@@ -87,10 +87,13 @@ public:
 
     void add(int data,int index) {
 
+        
         Linked_List new_list = Linked_List();
         Node* temp = (Node*) malloc(sizeof(Node));
         temp = head;
         int currentIndex = 0;
+
+
         
         while (temp != NULL && currentIndex != index-1) {
             new_list.addNode(temp->data);
@@ -114,7 +117,8 @@ public:
         }
 
         // new_list.print();
-        this->nl = &new_list;
+        temp = head;
+        this->prevList = temp;
         
         
 
@@ -131,8 +135,9 @@ public:
     
     Linked_List getNL() {
 
-        Linked_List x = *this->nl;
-        return x;
+        Linked_List x = Linked_List();
+        
+
     }
         
 
@@ -150,6 +155,9 @@ int main() {
     cout<<endl;
     Linked_List list2 = list.getNL();
     list2.print();
+    // list2.add(0,1);
+    // Linked_List list3 = list2.getNL();
+    // list3.print();
     
     
     
