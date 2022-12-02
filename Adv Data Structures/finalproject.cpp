@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+#include <vector>
 
 
 class Linked_List {
@@ -13,6 +14,10 @@ private:
     Node* head = NULL;
     int size;
 
+    
+    Linked_List *nl;
+    
+    
     void addNode(int new_data) {
         Node* current = head;
         Node* node = (Node*) malloc(sizeof(Node));
@@ -39,7 +44,7 @@ public:
     
     Linked_List() {
 
-
+        
 
     }
 
@@ -80,15 +85,11 @@ public:
         }
     }
 
-    Node* getHead() {
-        return head;
-    }
+    void add(int data,int index) {
 
-    Linked_List immutable_add(Linked_List list, int data, int index) {
-        
         Linked_List new_list = Linked_List();
         Node* temp = (Node*) malloc(sizeof(Node));
-        temp = list.getHead();
+        temp = head;
         int currentIndex = 0;
         
         while (temp != NULL && currentIndex != index-1) {
@@ -112,8 +113,26 @@ public:
             newTemp = newTemp->next;
         }
 
-        return new_list;
+        // new_list.print();
+        this->nl = &new_list;
+        
+        
 
+        
+
+    }
+
+    
+
+    Node* getHead() {
+        return head;
+    }
+
+    
+    Linked_List getNL() {
+
+        Linked_List x = *this->nl;
+        return x;
     }
         
 
@@ -125,10 +144,13 @@ int main() {
 
     int arr[10] = { 1,2,3,5,6,7,8,9,10 };
     Linked_List list = Linked_List(arr,10);
-    Linked_List list2 = list2.immutable_add(list, 4, 3);
+    list.add(4,3);
+    
     list.print();
     cout<<endl;
+    Linked_List list2 = list.getNL();
     list2.print();
+    
     
     
 }
