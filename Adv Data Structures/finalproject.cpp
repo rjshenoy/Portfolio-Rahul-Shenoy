@@ -13,9 +13,9 @@ private:
     };
     Node* head = NULL;
     int size;
+    Node *prevHead = NULL;
 
-    
-    Node *prevList;
+
     
     
     void addNode(int new_data) {
@@ -35,6 +35,7 @@ private:
             }
     
             current->next = node;
+            
         }
 
 
@@ -51,7 +52,7 @@ public:
     
     Linked_List(int data[], int size) {
 
-        for (int i = 0; i < size-1; i++) {
+        for (int i = 0; i < size; i++) {
 
             addNode(data[i]);
 
@@ -79,21 +80,43 @@ public:
     void print() {
         Node* ptr;
         ptr = head;
+
+    if (ptr == NULL) {
+        cout << "List is empty" << endl;
+    }
+
         while (ptr != NULL) {
-            cout<< ptr->data <<" ";
+            cout<< ptr->data << " ";
             ptr = ptr->next;
         }
     }
 
-    void add(int data,int index) {
+    void addPrevList(Node* prev) {
 
-        
+        this->prevHead = prev;
+
+    }
+
+    Linked_List add(int data,int index) {
+
         Linked_List new_list = Linked_List();
         Node* temp = (Node*) malloc(sizeof(Node));
         temp = head;
         int currentIndex = 0;
 
+        if (index == 0) {
 
+           
+            Node* temp2 = (Node*) malloc(sizeof(Node));
+            temp2->data = data;
+            temp2->next = NULL;
+            new_list.head = temp2;
+            new_list.head->next = this->head;
+            new_list.addPrevList(this->head);
+            return new_list;
+                         
+
+        }
         
         while (temp != NULL && currentIndex != index-1) {
             new_list.addNode(temp->data);
@@ -117,8 +140,8 @@ public:
         }
 
         // new_list.print();
-        temp = head;
-        this->prevList = temp;
+        new_list.addPrevList(this->head);
+        return new_list;
         
         
 
@@ -133,11 +156,16 @@ public:
     }
 
     
-    Linked_List getNL() {
+    Linked_List getPrevList() {
 
         Linked_List x = Linked_List();
-        
-
+        Node* temp = (Node*) malloc(sizeof(Node));
+        temp = prevHead;
+        while (temp != NULL) {
+            x.addNode(temp->data);
+            temp = temp->next;
+        }
+        return x;
     }
         
 
@@ -147,17 +175,16 @@ public:
 int main() {
 
 
-    int arr[10] = { 1,2,3,5,6,7,8,9,10 };
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
     Linked_List list = Linked_List(arr,10);
-    list.add(4,3);
-    
     list.print();
-    cout<<endl;
-    Linked_List list2 = list.getNL();
+    Linked_List list2 = list.add(0,7);
+    cout << endl;
     list2.print();
-    // list2.add(0,1);
-    // Linked_List list3 = list2.getNL();
-    // list3.print();
+
+    
+    
+    
     
     
     
